@@ -1,0 +1,22 @@
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+h1 {
+  color: red;
+}
+
+.btn-update {
+  text-decoration: none;
+  background: #000;
+  color: #fff;
+  display: inline-block;
+  margin-left: auto;
+  padding: 3px 5px;
+}
+
+.post-list li {
+  display: flex;
+  margin: 5px;
+}

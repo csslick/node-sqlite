@@ -35,14 +35,26 @@ app.post('/create', async function(req, res){
 })
 
 app.get('/update/:id', async function(req, res) {
-  const posts = await Posts.findAll(); // 글 가져옴
+  // 클라이언트 요청 글 번호
   let id = req.params.id;
-  // :id(params)와 일치하는 post를 가져옴
-  const getPost = posts.find(post => post.id == id)
-  console.log(id, getPost.post);
+  // 요청글(id) 서버에서 가져옴
+  const getPost = await Posts.findOne({ where: { id: id } })
+  console.log(getPost.post);
   res.render('update.ejs', { 
     data: { id: id , post: getPost.post }
+  })
+})
+
+app.post('/update/:id', async function(req, res) {
+  let post = req.body.post;
+  let id = req.params.id;
+  // id에 해당하는 글 수정
+  await Posts.update({ post: post }, {
+    where: {
+      id: id
+    }
   });
+  res.redirect('/');
 })
 
 app.listen(8080);

@@ -19,6 +19,13 @@
             class="btn-update" 
             href="/update/<%= post.id %>">수정하기
           </a>
+          <form 
+            action="/delete/<%= post.id %>" 
+            method="post" 
+            id="delForm"
+            onsubmit="let result = confirm('삭제?');if(!result) return false;">
+            <button type="submit">삭제</button>
+          </form>
         </li>
       <% }) %> 
     </ul>
@@ -28,5 +35,12 @@
       <input type="submit" value="Submit">
     </form>
   </div><!-- container -->
+
+  <script>
+    function delForm() {
+      let result = confirm('삭제?');
+      if(!result) return false;
+    }
+  </script>
 </body>
 </html>

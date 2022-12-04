@@ -1,5 +1,6 @@
 -- SQLite
--- INSERT INTO books (title, price) VALUES ("자바스크립트 입문", 30000);
 
-INSERT INTO Posts (comment, createdAt, updatedAt) 
-VALUES ('first post', 'no value', 'no value');
+-- INSERT INTO Posts (post, createdAt, updatedAt)
+-- VALUES("second post", "2022-11-7", "2022-11-7")
+
+delete FROM Posts WHERE post="hello"

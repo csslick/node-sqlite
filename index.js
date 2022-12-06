@@ -1,11 +1,10 @@
 const express = require("express");
 const { sequelize, Posts } = require("./database");
-
 const app = express();
 
 // ejs를 view 엔진으로 설정
 app.set("view engine", "ejs");
-app.use(express.static("public"));
+app.use(express.static("./public"));
 
 // post 요청 모듈
 app.use(express.json());
@@ -25,14 +24,42 @@ app.get("/", async function (req, res) {
   res.render("index", { posts });
 });
 
-app.post("/create", async function (req, res) {
+
+
+// app.post("/create", async function (req, res) {
+//   let post = req.body.post;
+//   console.log(post);
+//   // posts.push(post);
+//   const newPost = await Posts.create({ post: post });
+//   console.log("auto-generated ID:", newPost.id);
+//   res.redirect("/");
+// });
+
+const multer = require('multer');
+const upload = multer({
+    dest: './public/upload',
+    storage: multer.diskStorage({
+      destination: function(req, file, cb) {
+        cb(null, './public/upload')
+      },
+      filename: function(req, file, cb) {
+        cb(null, file.originalname)
+      }
+    })
+})
+
+app.post("/create", upload.single('image'), async function (req, res) {
+  // let image = '/upload/' + req.file;
+  let imgName = req.body.image;
   let post = req.body.post;
-  console.log(post);
+  console.log(post, req.file, req.body);
   // posts.push(post);
   const newPost = await Posts.create({ post: post });
   console.log("auto-generated ID:", newPost.id);
   res.redirect("/");
 });
+
+
 
 app.get("/update/:id", async function (req, res) {
   // 클라이언트 요청 글 번호

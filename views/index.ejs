@@ -29,9 +29,11 @@
         </li>
       <% }) %> 
     </ul>
-    <form action="/create" method="post">
+    <!-- 파일전송시 enctype 설정 필요 -->
+    <form action="/create" method="post" enctype="multipart/form-data">
       <label for="post">글입력</label>
-      <input type="text" id="post" name="post"><br><br>
+      <input type="text" id="post" name="post">
+      <input type="file" name="image"><br><br>
       <input type="submit" value="Submit">
     </form>
   </div><!-- container -->

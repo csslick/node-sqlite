@@ -36,17 +36,19 @@ app.get("/", async function (req, res) {
 // });
 
 const multer = require('multer');
-const upload = multer({
-    dest: './public/upload',
-    storage: multer.diskStorage({
-      destination: function(req, file, cb) {
-        cb(null, './public/upload')
-      },
-      filename: function(req, file, cb) {
-        cb(null, file.originalname)
-      }
-    })
+const storage = multer.diskStorage({
+  destination: function(req, file, cb) {
+    cb(null, './public/upload')
+  },
+  filename: function(req, file, cb) {
+    cb(null, file.originalname)
+  }
 })
+
+const upload = multer({
+    storage: storage
+})
+
 
 app.post("/create", upload.single('image'), async function (req, res) {
   // let image = '/upload/' + req.file;
